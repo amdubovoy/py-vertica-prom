@@ -1,1 +1,1 @@
-# py-vertica-prometheus-exporter
+# py-vertica-prom
