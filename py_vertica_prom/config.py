@@ -1,6 +1,6 @@
 import os
 
-from py_vertica_prometheus_exporter.cli import parser
+from py_vertica_prom.cli import parser
 
 
 class Config:
