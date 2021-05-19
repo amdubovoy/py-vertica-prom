@@ -1,6 +1,6 @@
 from prometheus_client import Gauge, Enum
 
-from py_vertica_prom.metrics.sql_metrics_base import SQLMetric
+from py_vertica_prom.metrics.sql_metric import SQLMetric
 
 
 class NodeState(SQLMetric):

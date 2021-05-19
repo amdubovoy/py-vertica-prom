@@ -1,6 +1,6 @@
 from typing import Dict
 
-from py_vertica_prom.metrics.sql_metrics_base import SQLMetric
+from py_vertica_prom.metrics.sql_metric import SQLMetric
 from py_vertica_prom.vertica_base import VerticaBase
 
 
