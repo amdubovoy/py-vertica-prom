@@ -1,26 +1,39 @@
 import copy
+import logging
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 from prometheus_client.core import REGISTRY
 from prometheus_client.exposition import generate_latest
 
-from py_vertica_prom.config import config
+from py_vertica_prom.config import Config
+from py_vertica_prom.cli import parser
 from py_vertica_prom.metrics import VerticaMetrics
 
 
-if __name__ == "__main__":
+def run_server():
+    logging.basicConfig(
+        format=(
+            f"%(asctime)s - [%(levelname)s] - %(name)s - "
+            f"(%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
+        )
+    )
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    server_config = Config()
+
     # Unregister defaults
     collectors = copy.copy(REGISTRY._collector_to_names)
     for collector in collectors:
         REGISTRY.unregister(collector)
 
     # Initialize metric objects
-    metrics = VerticaMetrics(conn_details=config.vertica_conn_details)
+    metrics = VerticaMetrics(conn_details=server_config.vertica_conn_details)
 
     # Serve metrics via exposed location
     class MetricsServer(BaseHTTPRequestHandler):
         def do_GET(self):
-            if self.path == config.location:
+            if self.path == server_config.location:
                 # Refresh metrics only if Prometheus requested them
                 metrics.refresh_all()
 
@@ -32,10 +45,10 @@ if __name__ == "__main__":
                 self.send_response(404)
 
     # Run web server
-    web_server = HTTPServer(("", config.expose), MetricsServer)
-    print(
-        f"Server started http://localhost:{config.expose}. "
-        f"Get metrics at http://localhost:{config.expose}{config.location}"
+    web_server = HTTPServer(("", server_config.expose), MetricsServer)
+    logger.info(
+        "Server started. Get metrics at "
+        f"http://localhost:{str(server_config.expose) + server_config.location}",
     )
 
     try:
@@ -44,4 +57,8 @@ if __name__ == "__main__":
         pass
     finally:
         web_server.server_close()
-        print("Server stopped.")
+        logger.info("Server stopped.")
+
+
+if __name__ == "__main__":
+    run_server()
