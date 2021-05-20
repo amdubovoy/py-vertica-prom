@@ -191,3 +191,21 @@ class TotalQueriesExecuted(SQLMetric):
 
     def update_metric(self, new_value, labels):
         self.metric.labels(*labels).set(new_value)
+
+
+class TotalRowCount(SQLMetric):
+    sql_query = """
+        select  node_name,
+                sum(row_count) as vertica_total_row_count
+        from    projection_storage
+        group by
+                node_name;
+    """
+    metric_name = "vertica_total_row_count"
+    label_names = ["node_name"]
+    metric = Gauge(
+        metric_name, "Total current row count for all tables in db.", label_names
+    )
+
+    def update_metric(self, new_value, labels):
+        self.metric.labels(*labels).set(new_value)

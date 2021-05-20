@@ -3,8 +3,7 @@
 Runs as standalone container, thus can be isolated from your Vertica
 instances and other services.
 
-Currently, supports Vertica 9.3.0 only, but package can be easily adopted
-to run with other Vertica releases. Feel free to contribute!
+Feel free to contribute!
 
 ## Running in Docker
 
@@ -31,3 +30,31 @@ docker run -p 8000:5005 \
 All the values except for DB_NAME and DB_PASSWORD default to the values above.
 
 Metrics will soon be available on `localhost:8000/metrics`.
+
+## Metrics
+
+Metrics available out of the box:
+
+- `vertica_node_state`
+- `vertica_disk_space_used_mb`
+- `vertica_disk_space_free_mb`
+- `vertica_disk_space_free_percent`
+- `vertica_delete_vectors_cnt`
+- `vertica_ros_count`
+- `vertica_projection_row_count`
+- `vertica_projection_used_bytes`
+- `vertica_table_row_count`
+- `vertica_total_user_session_count`
+- `vertica_executed_query_count`
+- `vertica_total_row_count`
+
+_Specific to Vertica 9.3_:
+
+- `wos_row_count`
+- `wos_used_bytes`
+
+## Adding custom metrics
+
+There is a folder named `versions` in metrics module. Add your own custom files there,
+and don't forget to import them to `VerticaMetrics` `__init__` method alongside
+existing imports.
