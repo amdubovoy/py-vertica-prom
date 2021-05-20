@@ -8,7 +8,7 @@ class Config:
         args = parser.parse_args()
 
         host = args.host or os.environ.get("DB_HOST") or "localhost"
-        port = int(args.port) or int(os.environ.get("DB_PORT")) or 5433
+        port = int(args.port or os.environ.get("DB_PORT") or 5433)
         db = args.db or os.environ.get("DB_NAME")
         if db is None:
             raise ValueError("Database name not provided in env or CLI arguments.")
@@ -19,7 +19,7 @@ class Config:
                 "Vertica admin user password not provided in env or CLI arguments."
             )
 
-        self.expose = args.expose or os.environ.get("EXPOSE") or 8000
+        self.expose = int(args.expose or os.environ.get("EXPOSE")) or 8000
         self.location = args.location or os.environ.get("LOCATION") or "/metrics"
         self.vertica_conn_details = {
             "host": host,
