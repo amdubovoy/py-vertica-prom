@@ -58,3 +58,10 @@ _Specific to Vertica 9.3_:
 There is a folder named `versions` in metrics module. Add your own custom files there,
 and don't forget to import them to `VerticaMetrics` `__init__` method alongside
 existing imports.
+
+## About
+
+- Easy to run.
+- Lightweight (built image is ~70mb).
+- Lazy: collects metrics only when Prometheus requests them.
+- Only necessary dependencies (`vertica-python` and `prometheus-client`).
