@@ -50,8 +50,8 @@ Metrics available out of the box:
 
 _Specific to Vertica 9.3_:
 
-- `wos_row_count`
-- `wos_used_bytes`
+- `vertica_wos_row_count`
+- `vertica_wos_used_bytes`
 
 ## Adding custom metrics
 
