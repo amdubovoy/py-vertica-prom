@@ -5,7 +5,7 @@ from prometheus_client import Gauge, Summary, Histogram, Info, Enum
 
 class SQLMetric:
     """
-    Generic class that describes attributes and a need for update method,
+    Generic class that describes attributes and abstract update method,
     which is specific to each Prometheus metric update mechanism. All the
     metrics should inherit from this class.
 
