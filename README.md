@@ -28,7 +28,7 @@ docker run -p 8000:5005 \
   --env DB_PASSWORD=qwerty123 \
   --env EXPOSE=5005 \
   --env LOCATION=/metrics \
-  py-vertica-prom
+  adubovoy/py-vertica-prom
 ```
 
 All the values except for DB_NAME and DB_PASSWORD default to the values above.
