@@ -11,7 +11,7 @@ class WOSRowCount(SQLMetric):
         from    v_monitor.storage_containers
         where   storage_type = 'WOS'
         order by
-                wos_row_count desc
+                vertica_wos_row_count desc
         limit   10;
     """
     metric_name = "vertica_wos_row_count"
@@ -30,7 +30,7 @@ class WOSUsedBytes(SQLMetric):
         from    v_monitor.storage_containers
         where   storage_type = 'WOS'
         order by
-                wos_used_bytes desc
+                vertica_wos_used_bytes desc
         limit   10;
     """
     metric_name = "vertica_wos_used_bytes"
