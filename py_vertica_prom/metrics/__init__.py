@@ -8,15 +8,14 @@ class VerticaMetrics(VerticaBase):
     def __init__(self, conn_details: Dict) -> None:
         super().__init__(conn_details)
 
+        # load version-agnostic metrics
         from py_vertica_prom.metrics.versions import base
 
         self.version = self.get_version()
         if self.version == "9.3.0":
+            # load version-specific metrics before subclass introspection
             from py_vertica_prom.metrics.versions import v9_3_0
-        else:
-            raise NotImplementedError(
-                f"Vertica {self.version} currently not supported."
-            )
+
         self.sql_metrics = [cls() for cls in SQLMetric.__subclasses__()]
 
     def collect_data(self):
