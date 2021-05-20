@@ -69,3 +69,10 @@ existing imports.
 - Lightweight (built image is ~70mb).
 - Lazy: collects metrics only when Prometheus requests them.
 - Only necessary dependencies (`vertica-python` and `prometheus-client`).
+
+## TODO:
+
+- Collect metrics in one big transaction instead of bunch of small ones
+- Tests
+- Project-wide exception handling
+- More version-specific metrics
