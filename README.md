@@ -7,13 +7,17 @@ Feel free to contribute!
 
 ## Running in Docker
 
-Clone repository to the target machine.
+```shell
+docker pull adubovoy/py-vertica-prom:latest
+```
 
-Execute following commands:
+Or clone git repository to the target machine and execute docker build command:
 
 ```shell
 docker build -t py-vertica-prom .
 ```
+
+Run py-vertica-prom:
 
 ```shell
 docker run -p 8000:5005 \
