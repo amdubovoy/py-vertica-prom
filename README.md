@@ -26,7 +26,7 @@ docker run -p 8000:5005 \
   --env DB_NAME=some_db \
   --env DB_USERNAME=dbadmin \
   --env DB_PASSWORD=qwerty123 \
-  --env EXPOSE=5005 \
+  --env EXPOSE=8000 \
   --env LOCATION=/metrics \
   adubovoy/py-vertica-prom
 ```

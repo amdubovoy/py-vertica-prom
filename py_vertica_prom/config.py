@@ -19,7 +19,7 @@ class Config:
                 "Vertica admin user password not provided in env or CLI arguments."
             )
 
-        self.expose = int(args.expose or os.environ.get("EXPOSE")) or 8000
+        self.expose = int(args.expose or os.environ.get("EXPOSE") or 8000)
         self.location = args.location or os.environ.get("LOCATION") or "/metrics"
         self.vertica_conn_details = {
             "host": host,
