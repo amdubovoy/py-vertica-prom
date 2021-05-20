@@ -1,6 +1,6 @@
 from typing import Optional, List, Union
 
-from prometheus_client import Gauge, Enum
+from prometheus_client import Gauge, Summary, Histogram, Info, Enum
 
 
 class SQLMetric:
@@ -8,7 +8,7 @@ class SQLMetric:
     metric_name: str
     label_names: Optional[List]
     states: Optional[List]
-    metric: Union[Gauge, Enum]
+    metric: Union[Gauge, Summary, Histogram, Info, Enum]
     query_result = Optional[List]
 
     def update_metric(self, new_value, labels):
