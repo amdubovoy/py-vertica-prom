@@ -20,7 +20,7 @@ class Config:
             )
 
         self.expose = int(args.expose or os.environ.get("EXPOSE") or 8000)
-        self.rate = args.rate or os.environ.get("RATE") or 15
+        self.rate = int(args.rate or os.environ.get("RATE") or 15)
         self.vertica_conn_details = {
             "host": host,
             "port": port,
