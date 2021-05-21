@@ -1,9 +1,9 @@
 import copy
 import logging
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from time import sleep
 
+from prometheus_client import start_http_server
 from prometheus_client.core import REGISTRY
-from prometheus_client.exposition import generate_latest
 
 from py_vertica_prom.config import Config
 from py_vertica_prom.cli import parser
@@ -30,34 +30,15 @@ def run_server():
     # Initialize metric objects
     metrics = VerticaMetrics(conn_details=server_config.vertica_conn_details)
 
-    # Serve metrics via exposed location
-    class MetricsServer(BaseHTTPRequestHandler):
-        def do_GET(self):
-            if self.path == server_config.location:
-                # Refresh metrics only if Prometheus requested them
-                metrics.refresh_all()
-
-                self.send_response(200)
-                self.send_header("Content-type", "text/plain")
-                self.end_headers()
-                self.wfile.write(generate_latest(REGISTRY))
-            else:
-                self.send_response(404)
-
-    # Run web server
-    web_server = HTTPServer(("", server_config.expose), MetricsServer)
-    logger.info(
-        "Server started. Get metrics at "
-        f"http://localhost:{str(server_config.expose) + server_config.location}",
-    )
+    logger.info(f"Starting server. Listening on port {server_config.expose}")
+    start_http_server(server_config.expose)
 
     try:
-        web_server.serve_forever()
+        while True:
+            metrics.refresh_all()
+            sleep(server_config.rate)
     except KeyboardInterrupt:
-        pass
-    finally:
-        web_server.server_close()
-        logger.info("Server stopped.")
+        logger.info("Server stopped")
 
 
 if __name__ == "__main__":

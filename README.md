@@ -27,7 +27,7 @@ docker run -p 8000:5005 \
   --env DB_USERNAME=dbadmin \
   --env DB_PASSWORD=qwerty123 \
   --env EXPOSE=8000 \
-  --env LOCATION=/metrics \
+  --env RATE=15 \
   adubovoy/py-vertica-prom
 ```
 
@@ -67,12 +67,11 @@ existing imports.
 
 - Easy to run.
 - Lightweight (built image is ~70mb).
-- Lazy: collects metrics only when Prometheus requests them.
 - Only necessary dependencies (`vertica-python` and `prometheus-client`).
 
 ## TODO:
 
-- Collect metrics in one big transaction instead of bunch of small ones
+- Collect metrics in one big transaction instead of many small ones
 - Tests
 - Project-wide exception handling
 - More version-specific metrics

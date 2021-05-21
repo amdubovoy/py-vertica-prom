@@ -14,10 +14,10 @@ parser.add_argument(
     type=int,
 )
 parser.add_argument(
-    "--location",
-    "-l",
-    help="Specify metrics location. Defaults to `/metrics`.",
-    type=str,
+    "--rate",
+    "-r",
+    help="Specify polling rate. Defaults to `15",
+    type=int,
 )
 parser.add_argument(
     "--host",
