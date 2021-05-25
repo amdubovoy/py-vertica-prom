@@ -40,15 +40,15 @@ class WOSUsedBytes(SQLMetric):
 class WOSContainerCount(SQLMetric):
     sql_query = """
         select  node_name,
-                count(*) as vertica_wos_storage_containers
+                count(*) as vertica_wos_storage_container_count
         from    storage_containers
         where   storage_type = 'WOS'
         group by
                 node_name;
     """
-    metric_name = "vertica_wos_storage_containers"
+    metric_name = "vertica_wos_storage_container_count"
     label_names = ["node_name"]
-    metric = Gauge(metric_name, "WOS sotrage container count.", label_names)
+    metric = Gauge(metric_name, "WOS storage container count.", label_names)
 
     def update_metric(self, new_value, labels):
         self.metric.labels(*labels).set(new_value)

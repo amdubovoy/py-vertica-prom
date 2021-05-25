@@ -44,18 +44,13 @@ Metrics available out of the box:
 - `vertica_disk_space_free_mb`
 - `vertica_disk_space_free_percent`
 - `vertica_delete_vectors_cnt`
-- `vertica_ros_count`
-- `vertica_projection_row_count`
-- `vertica_projection_used_bytes`
-- `vertica_table_row_count`
-- `vertica_total_user_session_count`
-- `vertica_executed_query_count`
 - `vertica_total_row_count`
 
 _Specific to Vertica 9.3_:
 
 - `vertica_wos_row_count`
 - `vertica_wos_used_bytes`
+- `vertica_wos_storage_container_count`
 
 ## Adding custom metrics
 
